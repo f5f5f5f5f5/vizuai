@@ -1,0 +1,6 @@
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Generated local dependencies and build output, never tracked"
+paths = ['''(^|/)(node_modules|\.venv|\.git|dist|\.prerender|__pycache__)/''']

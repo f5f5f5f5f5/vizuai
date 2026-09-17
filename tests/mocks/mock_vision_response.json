@@ -1,0 +1,16 @@
+{
+  "localizedObjectAnnotations": [
+    {
+      "name": "Chair",
+      "score": 0.92,
+      "boundingPoly": {
+        "normalizedVertices": [
+          {"x": 0.1, "y": 0.1},
+          {"x": 0.6, "y": 0.1},
+          {"x": 0.6, "y": 0.6},
+          {"x": 0.1, "y": 0.6}
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,252 @@
+{
+  "version": "v1.2",
+  "notes": [
+    "Seed mapping for furniture_search label normalization and lightweight candidate filtering.",
+    "Intended use: (1) strengthen SearchAPI q, (2) filter/rerank candidates by title/url tokens before any expensive vision rerank.",
+    "Tuning loop: add exclude tokens first (highest ROI), then add include synonyms as needed.",
+    "v1.2: expand chair include_tokens to cover кресло/пуф synonyms (pre-rank should not miss obvious seating matches)."
+  ],
+  "vision_label_to_type": {
+    "Couch": "sofa",
+    "Sofa": "sofa",
+    "Loveseat": "sofa",
+    "Armchair": "armchair",
+    "Chair": "chair",
+    "Stool": "stool",
+    "Table": "table",
+    "Desk": "desk",
+    "Bed": "bed",
+    "Infant bed": "kids_bed",
+    "Wardrobe": "wardrobe",
+    "Cabinet": "cabinet",
+    "Cabinetry": "cabinetry",
+    "Drawer": "dresser",
+    "Dresser": "dresser",
+    "Shelf": "shelving",
+    "Bookcase": "shelving",
+    "Television": "tv",
+    "TV": "tv",
+    "Mirror": "mirror",
+    "Picture frame": "wall_decor",
+    "Rug": "rug",
+    "Carpet": "rug",
+    "Curtain": "curtains",
+    "Window blind": "curtains",
+    "Lamp": "lamp",
+    "Lighting": "lighting",
+    "Chandelier": "lighting",
+    "Light fixture": "lighting",
+    "Houseplant": "plant",
+    "Refrigerator": "refrigerator",
+    "Kitchen Appliance": "kitchen_appliance",
+    "Sink": "sink",
+    "Furniture": "misc_furniture",
+    "Animal": "ignore"
+  },
+  "types": {
+    "sofa": {
+      "search_enabled": true,
+      "query_terms": ["диван", "софа", "sofa", "couch"],
+      "include_tokens": ["диван", "софа", "sofa", "couch", "секц", "модульн"],
+      "exclude_tokens": [
+        "часы",
+        "clock",
+        "watch",
+        "браслет",
+        "ремешок",
+        "jewelry",
+        "украш",
+        "светильник",
+        "люстра",
+        "lamp",
+        "chandelier",
+        "настенн",
+        "картина",
+        "постер",
+        "панно",
+        "обои",
+        "divandek",
+        "дивандек",
+        "чехол на мебель",
+        "чехол на диван",
+        "накидк",
+        "покрывало",
+        "плед"
+      ]
+    },
+    "armchair": {
+      "search_enabled": true,
+      "query_terms": ["кресло", "armchair"],
+      "include_tokens": ["кресло", "armchair", "recliner", "пуф", "ott", "банкетк"],
+      "exclude_tokens": ["часы", "clock", "watch", "браслет", "ремешок", "светильник", "lamp", "чехол на кресло", "накидк"]
+    },
+    "chair": {
+      "search_enabled": true,
+      "query_terms": ["стул", "chair"],
+      "include_tokens": ["стул", "chair", "кресл", "armchair", "пуф", "pouf", "ottoman", "обеденн", "кухонн", "барн"],
+      "exclude_tokens": ["часы", "clock", "watch", "браслет", "ремешок", "светильник", "lamp", "чехол на стул", "накидк"]
+    },
+    "stool": {
+      "search_enabled": true,
+      "query_terms": ["табурет", "стул", "stool"],
+      "include_tokens": ["табурет", "stool", "пуф", "барн"],
+      "exclude_tokens": ["часы", "clock", "watch", "светильник", "lamp"]
+    },
+    "table": {
+      "search_enabled": true,
+      "query_terms": ["стол", "table"],
+      "include_tokens": ["стол", "table", "журнальн", "кофейн", "обеденн", "приставн", "консоль"],
+      "exclude_tokens": [
+        "часы",
+        "clock",
+        "watch",
+        "светильник",
+        "lamp",
+        "люстра",
+        "chandelier",
+        "полка",
+        "shelf",
+        "зеркало",
+        "mirror"
+      ]
+    },
+    "desk": {
+      "search_enabled": true,
+      "query_terms": ["письменный стол", "стол", "desk"],
+      "include_tokens": ["письменн", "рабоч", "desk", "компьютерн", "офисн"],
+      "exclude_tokens": ["часы", "clock", "watch", "светильник", "lamp"]
+    },
+    "bed": {
+      "search_enabled": true,
+      "query_terms": ["кровать", "bed"],
+      "include_tokens": ["кровать", "bed", "спальн", "изголов"],
+      "exclude_tokens": ["часы", "clock", "watch", "светильник", "lamp", "матрас", "постельн", "одеяло"]
+    },
+    "nightstand": {
+      "search_enabled": true,
+      "query_terms": ["тумба прикроватная", "тумба", "nightstand"],
+      "include_tokens": ["прикроватн", "тумба", "nightstand"],
+      "exclude_tokens": ["часы", "clock", "watch", "светильник", "lamp"]
+    },
+    "wardrobe": {
+      "search_enabled": true,
+      "query_terms": ["шкаф", "гардероб", "wardrobe"],
+      "include_tokens": ["шкаф", "гардероб", "wardrobe", "купе", "распашн"],
+      "exclude_tokens": ["часы", "clock", "watch", "вешалка", "плечики", "крючок"]
+    },
+    "dresser": {
+      "search_enabled": true,
+      "query_terms": ["комод", "тумба", "dresser"],
+      "include_tokens": ["комод", "dresser", "тумба", "ящик"],
+      "exclude_tokens": ["часы", "clock", "watch", "ручка", "фурнитура"]
+    },
+    "cabinet": {
+      "search_enabled": true,
+      "query_terms": ["тумба", "шкаф", "cabinet"],
+      "include_tokens": ["тумба", "шкаф", "cabinet", "шкафчик"],
+      "exclude_tokens": ["часы", "clock", "watch", "ручка", "фурнитура"]
+    },
+    "tv_stand": {
+      "search_enabled": true,
+      "query_terms": ["тумба под тв", "тв тумба", "tv stand"],
+      "include_tokens": ["тв", "тумба", "tv", "stand", "медиа", "консоль"],
+      "exclude_tokens": ["часы", "clock", "watch", "кронштейн", "крепление", "пульт"]
+    },
+    "shelving": {
+      "search_enabled": true,
+      "query_terms": ["стеллаж", "полка", "shelf"],
+      "include_tokens": ["стеллаж", "полка", "shelf", "bookcase", "витрин"],
+      "exclude_tokens": ["часы", "clock", "watch", "книга", "декор", "ваза"]
+    },
+    "mirror": {
+      "search_enabled": true,
+      "query_terms": ["зеркало", "mirror"],
+      "include_tokens": ["зеркало", "mirror"],
+      "exclude_tokens": ["часы", "clock", "watch", "рамка", "подсветка", "светильник", "lamp"]
+    },
+    "rug": {
+      "search_enabled": true,
+      "query_terms": ["ковер", "коврик", "rug"],
+      "include_tokens": ["ковер", "коврик", "rug", "carpet"],
+      "exclude_tokens": ["часы", "clock", "watch"]
+    },
+    "curtains": {
+      "search_enabled": true,
+      "query_terms": ["шторы", "занавески", "curtains"],
+      "include_tokens": ["шторы", "занавес", "curtain", "tulle", "жалюзи", "blind"],
+      "exclude_tokens": ["часы", "clock", "watch"]
+    },
+    "lamp": {
+      "search_enabled": true,
+      "query_terms": ["лампа", "lamp"],
+      "include_tokens": ["лампа", "lamp", "торшер", "sconce", "бра"],
+      "exclude_tokens": ["часы", "clock", "watch"]
+    },
+    "lighting": {
+      "search_enabled": true,
+      "query_terms": ["светильник", "люстра", "lighting"],
+      "include_tokens": ["светильник", "люстра", "lighting", "chandelier"],
+      "exclude_tokens": ["часы", "clock", "watch"]
+    },
+    "plant": {
+      "search_enabled": true,
+      "query_terms": ["растение", "plant"],
+      "include_tokens": ["растение", "plant", "цветок", "фикус", "ficus", "монстера", "monstera"],
+      "exclude_tokens": []
+    },
+    "tv": {
+      "search_enabled": true,
+      "query_terms": ["телевизор", "tv"],
+      "include_tokens": ["телевизор", "tv"],
+      "exclude_tokens": ["матриц", "панел", "диспле", "модуль", "плата", "кронштейн", "крепление", "пульт"]
+    },
+    "cabinetry": {
+      "search_enabled": true,
+      "query_terms": ["тумба", "комод", "шкаф", "кухонный гарнитур", "cabinetry"],
+      "include_tokens": ["тумба", "комод", "шкаф", "cabinet", "sideboard", "гарнитур", "кухонн", "модульн", "тв", "tv"],
+      "exclude_tokens": ["ручка", "фурнитура", "петл", "крепеж", "саморез", "направляющ"]
+    },
+    "refrigerator": {
+      "search_enabled": true,
+      "query_terms": ["холодильник", "refrigerator"],
+      "include_tokens": ["холодильник", "refrigerator", "морозильн", "fridge"],
+      "exclude_tokens": ["уплотнит", "компрессор", "запчаст", "ремкомплект"]
+    },
+    "kitchen_appliance": {
+      "search_enabled": true,
+      "query_terms": ["духовой шкаф", "микроволновка", "варочная панель", "плита", "kitchen appliance"],
+      "include_tokens": ["духов", "микроволнов", "вароч", "плита", "oven", "microwave", "cooktop"],
+      "exclude_tokens": ["запчаст", "фильтр", "аксессуар", "ручка"]
+    },
+    "kids_bed": {
+      "search_enabled": true,
+      "query_terms": ["детская кровать", "детская кроватка", "kids bed", "crib"],
+      "include_tokens": ["детск", "кроват", "crib", "kids bed"],
+      "exclude_tokens": ["матрас", "простын", "одеяло", "подушка"]
+    },
+    "wall_decor": {
+      "search_enabled": false,
+      "query_terms": ["картина", "постер", "панно", "wall art"],
+      "include_tokens": ["картина", "постер", "панно", "poster", "painting", "wall art", "picture frame"],
+      "exclude_tokens": ["часы", "clock", "watch"]
+    },
+    "sink": {
+      "search_enabled": false,
+      "query_terms": ["мойка", "раковина", "sink"],
+      "include_tokens": ["мойка", "раковина", "sink"],
+      "exclude_tokens": ["салатник", "миска", "пиала", "bowl"]
+    },
+    "misc_furniture": {
+      "search_enabled": true,
+      "query_terms": ["пуф", "pouf", "ottoman", "банкетка"],
+      "include_tokens": ["пуф", "pouf", "ottoman", "банкетк"],
+      "exclude_tokens": ["игрушк", "toy", "подушка", "pillow"]
+    },
+    "ignore": {
+      "search_enabled": false,
+      "query_terms": [],
+      "include_tokens": [],
+      "exclude_tokens": []
+    }
+  }
+}

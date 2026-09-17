@@ -1,0 +1,34 @@
+[
+  {
+    "prefix": "uploads/",
+    "age_days": 30
+  },
+  {
+    "prefix": "final/",
+    "age_days": 30
+  },
+  {
+    "prefix": "style_refs/",
+    "age_days": 30
+  },
+  {
+    "prefix": "inputs/",
+    "age_days": 5
+  },
+  {
+    "prefix": "prepared/",
+    "age_days": 5
+  },
+  {
+    "prefix": "render/",
+    "age_days": 5
+  },
+  {
+    "prefix": "rerender/",
+    "age_days": 5
+  },
+  {
+    "prefix": "crops/",
+    "age_days": 5
+  }
+]

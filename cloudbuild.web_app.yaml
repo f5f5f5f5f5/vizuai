@@ -1,0 +1,18 @@
+substitutions:
+  _REGION: europe-west1
+  _ARTIFACT_REPOSITORY: vizuai
+  _IMAGE_TAG: source
+  _API_BASE_URL: https://api.vizuai.example/api/v1
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - -f
+      - frontend/web/Dockerfile
+      - --build-arg
+      - VITE_API_BASE_URL=${_API_BASE_URL}
+      - -t
+      - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_ARTIFACT_REPOSITORY}/vizuai-web-app:${_IMAGE_TAG}
+      - .
+images:
+  - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_ARTIFACT_REPOSITORY}/vizuai-web-app:${_IMAGE_TAG}

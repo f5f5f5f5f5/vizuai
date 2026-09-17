@@ -1,0 +1,15 @@
+substitutions:
+  _REGION: europe-west1
+  _ARTIFACT_REPOSITORY: vizuai
+  _IMAGE_TAG: source
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - -f
+      - Dockerfile.web_api
+      - -t
+      - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_ARTIFACT_REPOSITORY}/vizuai-web-api:${_IMAGE_TAG}
+      - .
+images:
+  - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_ARTIFACT_REPOSITORY}/vizuai-web-api:${_IMAGE_TAG}

@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /app
+Disallow: /app/
+Disallow: /login
+Disallow: /auth/
+
+Sitemap: https://vizuai.example/sitemap.xml
